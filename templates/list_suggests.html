@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-image: url("https://pibig.info/uploads/posts/2022-11/1669834714_1-pibig-info-p-temnie-oboi-kosmos-krasivo-1.jpg");
+            background-size: cover;
+            background-position: center center;
+            overflow: hidden;
+        }
+        p {
+            color: white;
+        }
+        h3 {
+            color: white
+        }
+        a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="text-center">
+    <h1 style="color:white;">Все предложения</h1>
+    <a href="{% url 'home' %}"><i style="font-size: 4em; color: white;" class="fa-solid fa-house"></i></a>
+</div>
+<hr>
+<hr>
+<div class="row mb-2">
+   {% for req in select_orm %}
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{ req.author }}</strong>
+          <h3 class="mb-0">{{ req.title }}</h3>
+          <div class="mb-1 text-danger">{{ req.date }}</div>
+          <p class="card-text mb-auto">{{ req.description|slice:"50" }}...</p>
+          <a href="{% url 'post_detail' req.id %}"><button type="button" class="btn btn-warning">Детально</button></a>
+        </div>
+        <div class="col-auto d-none d-lg-block">
+            {% if req.image %}
+                <img src="{% static req.image.url %}" alt="image" class="bd-placeholder-img" width="250" height="210"/>
+            {% endif %}
+
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+   </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
